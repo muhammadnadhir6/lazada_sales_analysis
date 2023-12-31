@@ -1,0 +1,305 @@
+<!DOCTYPE HTML>
+<!--
+	Massively by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	
+	<head>
+		<title>Massively by HTML5 UP</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+	</head>
+	<body class="is-preload">
+
+		<!-- Wrapper -->
+			<div id="wrapper" class="fade-in">
+
+				<!-- Intro -->
+					<div id="intro"></div>
+
+				<!-- Nav -->
+					<nav id="nav">
+						<ul class="links">
+							<li><a href="index.html">Intro</a></li>
+							<li><a href="generic.html">Projects</a></li>
+							<li><a href="elements.html">Contact Me</a></li>
+							<li  class="active"><a href="generic.html">Lazada Sales Analysis</a></li>
+						</ul>
+						<ul class="icons">
+							<li><a href="https://www.linkedin.com/in/muhammad-nadhir6" target="_blank" class="icon brands fa-linkedin"><span class="label">Instagram</span></a></li>
+							<li><a href="https://github.com/muhammadnadhir6" target="_blank" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
+						</ul>
+					</nav>
+
+				<!-- Main -->
+					<div id="main">
+
+						<!-- Featured Post -->
+							<article class="post featured">
+								<header class="major">
+									<h1>Lazada Sales Analysis</h1>
+								</header>
+								<header class="submajor">
+									<h2>Background</h2>
+								</header>
+								<header class="aboutme">
+									<a href="#" class="image main"><img src="images/promo.png" alt="" /></a>	
+									<p>Our client want to create a discount promotions to increase the product sold and market sales of lazada. 
+									They are not sure what kind of discount promotions that would effectively increase the goals.
+									Based on that, we will provide them an analytical overview of the market related to the issue.
+									Lastly, we will make a recommendation based on the data analytics result to help them decide what kind of discount promotions to take.
+									</p>
+								</header>
+								<header class="submajor">
+									<h2>Project Summary</h2>
+									<h3>Goal</h3>
+								</header>
+								<header class="text">
+									<p>Our goal is to find the most effective discount promotions that can be applied by our client to increase the sales.</p>
+								</header>
+								<header class="submajor">
+									<h3>Objectives</h3>
+								</header>
+								<header class="text">
+									<p>To find the most effective discount promotions that can be applied by our client, what we need to do in this project are :
+									<ul><li>Cleaning raw data using various method and make sure the data is feasible to analyze.</li>
+									<li>Conduct exploratory data analysis (EDA) to get the market overview of lazada.</li>
+									<li>Analyze products sold by brand and category.</li>
+									<li>Analyze sales of lazada.</li>
+									<li>Make a recommendation based on the analytical result.</li></ul></p>
+								</header>
+								<header class="submajor">
+									<h2>Dataset</h2>
+								</header>
+								<header class="text">	
+									<ul>
+									<li><h3>Lazada Items</h3></li>
+									<p>Contains <b>10.000+ rows</b> of lazada items with its ID, price, average rating, brand, category, etc.</p>
+									<li><h3>Lazada Customer Review</h3></li>
+									<p>Lazada review list in 59 month from April 2014 to October 2019. Contains <b>200.000+ rows</b> of product review with rating, review, date, platform used, etc.</p>
+									<a href="https://drive.google.com/drive/folders/19yJFG8gP84kfxYkD5aIQ7uqcLEcp55QZ?usp=sharing" class="button">Download Dataset</a>
+									</ul>
+								</header>
+								<header class="submajor">
+									<h2>Data Cleaning</h2>
+								</header>
+								<header class="text">
+									<p>We need to make sure the data is clean enough before analyzing the data to get unbiased analysis. The cleaning steps are :</p>
+									<ul><li><h3>Remove irrelevant columns</h3></li>
+									<p>The column in items sheet that we need to remove are url, category, total review, retrieved date, and average rating. The category column doesn't represent the product correctly so we need to remove it.
+										For the review sheet we need to remove category, name, original rating, review title, review content, like count, upvotes, downvotes, helpful, relevance score, and retrieved date. 
+									</p>
+									<script src="https://gist.github.com/muhammadnadhir6/b8302c4f104d79929cefcb3f2cdfde89.js"></script>
+									<li><h3>Handle missing value</h3></li>
+									<p>
+										After running missing value check, there are <b>4</b> missing rows on brand name column and <b>7107</b> missing rows on bought date column.
+										For the brand name, we fix it by defining the brand name ourselves. As for the bought date column, we fix it by removing rows that have missing value.
+									</p>
+									<script src="https://gist.github.com/muhammadnadhir6/07642bda398ce5afa5de88911fabd45a.js"></script>
+									<li><h3>Remove duplicates</h3></li>
+									<p>
+										For this step, we just need to apply it on the items sheet so that there is no duplicate items with the same ID.
+										As for review sheet, we don't need to because even if there is duplicated rows, it could be from different transaction.
+									</p>
+									<script src="https://gist.github.com/muhammadnadhir6/c14855cfb3a96af0a3a5dc8d79c62fa1.js"></script>
+									<li><h3>Convert data type</h3></li>
+									<p>
+										Convert item ID from integer(number) to varchar and bought date from dd-mm-yyyy to yyyy-mm-dd format. 
+										We also split the date by day, month, and year so that we can process it easily using python for visualization later.
+									</p>
+									<script src="https://gist.github.com/muhammadnadhir6/2412631da97b4291afa892e9121e4bfb.js"></script>
+									<li><h3>Typo check</h3></li>
+									<p>
+										We need to check in case there is a typo especially for brand name column because it has too much different brand name.
+										In short, what we do here are :
+										<ul>
+											<li>Removing space before and after brand name with "trim"</li> 
+											<li>Checking and shorten if there is brand name with 2 or more space</li>
+											<li>Replacing "-" and "_" with space, removing unnecessary special character</li>
+											<li>Changing all similar brand name that's actually the same into exactly the same brand name</li>
+											<li>Making the first letter of a brand name with 4 or more letter in uppercase</li>
+											<li>Making brand name with 3 or less letter in uppercase</li>
+											</ul>
+									</p>
+									</ul>
+									<script src="https://gist.github.com/muhammadnadhir6/cd0f803a0e913a455deca7b768461d99.js"></script>
+								</header>
+								<header class="submajor">
+									<h2>Merging Data</h2>
+									<h3>Merging data and categorizing items</h3>
+								</header>
+								<header class="text">
+									<p>
+										In this part, we will categorize the items automatically based on the product name and then merging the items and review data.
+									</p>
+									<script src="https://gist.github.com/muhammadnadhir6/ced1fafab0e2158d651014b95706313f.js"></script>
+								</header>
+								<header class="submajor">
+									<h3>Convert date type</h3>
+								</header>
+								<header class="text">
+									<p>
+										The bought date data type need to be converted from object to datetime if we want it to work properly as a date in further analysis.
+										The reason why we only want to convert it now is because SQL doesn't have datetime data type so we can't convert it using SQL, and now we can convert it using Python Panda after merging the data.
+									</p>
+									<script src="https://gist.github.com/muhammadnadhir6/8370efc58e4cd776e92fa1d6efaa1bb7.js"></script>
+								</header>
+								<header class="submajor">
+									<h2>EDA (Exploratory Data Analysis)</h2>
+									<h3>Descriptive analytics</h3>
+								</header>
+								<header class="text">
+									<p>
+										General analytics about mean, median, modus, count, distinct value, standard deviation, and etc for data on each column.
+									</p>
+									<script src="https://gist.github.com/muhammadnadhir6/eaf36f40b975be8d955f28cd675eb253.js"></script>
+								</header>
+								<header class="submajor">
+									<h3>Monthly transaction</h3>
+								</header>
+								<header class="text">
+									<script src="https://gist.github.com/muhammadnadhir6/169f86ebbdd7e6a7db5720ee48f5cd1a.js"></script>
+									<a class="image fit"><img src="images/monthlytransaction.png" alt="" /></a>
+									<p>
+										Despite there is insufficient data in 2014 from january until march, the lowest sales is not in those 3 months. 
+										The highest is in September then plummeted by 71.32% in October and became the lowest sales.
+									</p>
+								</header>
+								<header class="submajor">
+									<h3>Client Used</h3>
+								</header>
+								<header class="text">
+									<script src="https://gist.github.com/muhammadnadhir6/d164015aa9fb032ad161c58a84f5f659.js"></script>
+									<a class="image fit"><img src="images/clienttype.png" alt="" /></a>
+									<p>
+										Most of the customer used android app to access lazada. 
+										The rest 15% used desktop, ios, and other client to acces lazada.
+									</p>
+								</header>
+								<header class="submajor">
+									<h3>Top Selling Category</h3>
+								</header>
+								<header class="text">
+									<script src="https://gist.github.com/muhammadnadhir6/d0df825e214597a7ea37b40334ad5cfa.js"></script>
+									<a class="image fit"><img src="images/topsellingcategory.png" alt="" /></a>
+									<p>
+										TV is the best selling category with 84.589 total order or 43,01% among all other category.
+									</p>
+								</header>
+								<header class="submajor">
+									<h3>Top Selling Brand</h3>
+								</header>
+								<header class="text">
+									<script src="https://gist.github.com/muhammadnadhir6/76b3753bcc389d5ff885296133aacd6e.js"></script>
+									<a class="image fit"><img src="images/topsellingbrand.png" alt="" /></a>
+									<p>
+									In the top 10 best selling brand, sandisk is on the first place with 40.475 total order or 20,58% among all other brands.
+									</br>
+									</br><b>Flash Disk and Hard Disk</b>
+									<a class="image tableau"><img src="images/sandiskrank.png" alt="" /></a>
+									To find out why sandisk was the best selling product, we can try to figure out the price rank for sandisk product category which are flashdisk and hard disk.
+									It turns out that sandisk price was in 70th place which mean it was cheaper than the other 69 products ranked from 1 to 69.
+									It can be the reason why sandisk was 1st in the best selling brand.
+									</br>
+									</br><b>TV</b>
+									<a class="image tableau"><img src="images/tvrank.png" alt="" /></a>
+									For TV that in the top 10 best selling brand, which are Coocaa, Samsung, Xiaomi, and Toshiba have relatively expensive price compared to the other TV.
+									It means that price is not the main reason why those brands are in the best selling brand.
+									As for Sharp, it was in 17th place which mean it was cheaper than the other 16 products ranked from 1 to 16.
+									It means that for sharp brand, price can be the reason why it was in the best selling brand.
+									</br>
+									</br><b>Laptop</b>
+									<a class="image tableau"><img src="images/laptop.png" alt="" /></a>
+									For laptop that in the top 10 best selling brand, which are Xiaomi and Toshiba have relatively expensive price compared to the other laptop.
+									It means that price is not the main reason why those brands are in the best selling brand.
+									As for Asus and HP, it was in 13th and 16th place which mean price can be the reason why it was in the best selling brand.
+									</p>
+								</header>
+								<header class="submajor">
+									<h3>Week to week activity</h3>
+								</header>
+								<header class="text">
+									<script src="https://gist.github.com/muhammadnadhir6/1d8f1bbab92f0c72703683eb989c2e47.js"></script>
+									<a class="image fit"><img src="images/weektoweek.png" alt="" /></a>
+									<p>
+										During April 2018 until October 2019, top 3 highest acitivites are on July, August, and September.
+										The highest total order in a single day ever reached is on Monday September around 9700 total order.
+									</p>
+								</header>
+								<header class="submajor">
+									<h3>Total order by month</h3>
+								</header>
+								<header class="text">
+									<a class="image fit"><img src="images/orderpermonth.png" alt="" /></a>
+									<p>
+										The chart above shows total order by month from April 2014 to October 2019. 
+										In general, there is an increasing number of total order in the marketplace and there are a few moments the total order experience a significant increase.
+										It happens in December 2018, March 2019, May 2019, July 2019, and September 2019. 
+										We can look into that to get some promotions choice which already proven to be effective to increase total order.
+										To do that, we need to breakdown each month of this chart to see the details about what happen at that time.
+									</br>
+									</br>
+									</p>
+									<a class="image tableau"><img src="images/Dec2018.png" alt="" /></a>
+									<p>
+										In 2018, the total order experience a significant increase on 12 December. 
+										After looking into what happened, in that day Lazada had 12.12 promotion. 
+										The promotions are in the form of flash sale, discount voucher, and free shipping.
+									</p>
+									<a class="image tableau"><img src="images/March2019.png" alt="" /></a>
+									<p>
+										There was a significant increase of total order on 27 March 2019. 
+										That day happened to be lazada's 7th birtday. 
+										The promotions are flash sale, big sale, group buy, and discount voucher.
+									</p>
+									<a class="image tableau"><img src="images/May2019.png" alt="" /></a>
+									<p>
+										On 14 May 2019, the significant increase on total order was caused by Ramadhan promotions. 
+										Such as flash sale, discount voucher, paylater payment, and cashback.
+									</p>
+									<a class="image tableau"><img src="images/Jul2019.png" alt="" /></a>
+									<p>
+										The significant increase on total order happened on 12 July 2019.
+										There was Lazada mid year festival with various promotions such as flash sale, 99.9% discount, discount voucher, paylater payment, and cashback.
+									</p>
+									<a class="image tableau"><img src="images/Sep2019.png" alt="" /></a>
+									<p>
+										Lastly, on 9 September 2019 the significant increase of total order was caused by 9.9 promotion.
+										It offered the same promotions such as flash sale, discount voucher, paylater, and cashback.
+									</p>
+								</header>
+								<header class="submajor">
+									<h2>Recommendation</h2>
+								</header>
+								<header class="text">
+									<p><ul>
+									<li>We recommend to use promotions such as <b>flash sale, discount voucher, paylater and cashback</b> to increase the order count and sales.
+									The products that will be given a discount are flash disk, hard disk, TV, laptop, and especially on products that very dependent on the price which are Sandisk, Sharp, Asus, and HP</li>
+									<li>To publicize the promotions, we recommend to <b>target android users.</b>
+									We can use social media ads, operating system ads, application ads, website and browser ads, etc.</li>
+									</ul></p>
+								</header>
+							</article>
+					</div>
+
+				<!-- Copyright -->
+					<div id="copyright">
+						<ul><li>&copy; Untitled</li><li>Design: <a href="https://html5up.net">HTML5 UP</a></li></ul>
+					</div>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.scrollex.min.js"></script>
+			<script src="assets/js/jquery.scrolly.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+	</body>
+</html>
